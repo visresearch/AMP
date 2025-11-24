@@ -1,0 +1,77 @@
+
+
+model:
+    arch: vit_giant2
+    patch_size: 14
+    layerscale: 1.0e-05
+    ffn_layer: swiglufused
+    block_chunks: 0
+    qkv_bias: true
+    proj_bias: true
+    ffn_bias: true
+    num_register_tokens: 0
+    interpolate_antialias: false
+    interpolate_offset: 0.1
+
+    input_size: 518
+    path: /public/scccse/model_weight/dinov2/dinov2_vitg14_pretrain.pth
+
+    use_ckpt: false
+
+    use_ckpt_during_prune: true
+    # max_gpu_memory: 40 #GB
+    max_gpu_memory: 30 #GB
+    # max_gpu_memory: 25 #GB 
+
+
+data:
+    # name: coco
+    # path: /public/scccse/dataset/COCO2014
+    name: imagenet1k
+    path: /public/scccse/dataset/ILSVRC2012
+
+    input_size: 224
+    min_crop: 0.05
+
+    # batch_size: 64 # loss_inc_thresh=0.02
+    # batch_size: 80 
+    batch_size: 128
+    # batch_size: 256
+    # batch_size: 96 # loss_inc_thresh=0.02
+    # batch_size: 128 # loss_inc_thresh=0.02, oom when pruning block 4
+    # batch_size: 128 # loss_inc_thresh=0.04
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 4
+
+resume:
+    use_resume: false
+    fname_score: /path/to/ckpt
+    fname_model: /path/to/ckpt
+
+    # use_resume: true
+    # fname_score: out/vit_giant2_prune/dinov2_2025-02-22_21-24-14/ckpt/score_layer_wise_thresh_0.005_t20/scores_layer_10.pth
+    # fname_model: out/vit_giant2_prune/dinov2_2025-02-22_21-24-14/ckpt/model_layer_wise_thresh_0.005_t20/model_layer_10.pth
+
+prune:
+    # use_abs: false
+    use_abs: true
+
+    only_image: true
+    use_entropy: true
+
+    # loss_inc_thresh: 0.005
+    # loss_inc_thresh: 0.01
+    # loss_inc_thresh: 0.02
+    # loss_inc_thresh: 0.04
+
+    # --------- batch_size: 128
+    # temp_inv: 20
+    # loss_inc_thresh: 5e-4
+    # loss_inc_thresh: 1e-3
+    # loss_inc_thresh: 5e-3
+
+    # --------- batch_size: 256
+    temp_inv: 20
+    loss_inc_thresh: 5e-3
+    # loss_inc_thresh: 1e-2

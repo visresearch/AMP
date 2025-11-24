@@ -1,0 +1,71 @@
+
+
+model:
+    name: ViT-g-14
+    path: /public/scccse/model_weight/CLIP-ViT-g-14-laion2B-s34B-b88K/open_clip_pytorch_model.bin
+
+    # use_ckpt: true
+    use_ckpt: false
+
+    # use_ckpt_during_prune: true
+    # use_ckpt_during_prune: true
+    # use_ckpt_layer_idx: 10
+    # max_gpu_memory: 42 #GB
+    # max_gpu_memory: 40 #GB
+    # ------- for layer wise -------
+    # max_gpu_memory: 36 #GB 
+    # ------- one-shot taylor -------
+    # use_ckpt_during_prune: true
+    # max_gpu_memory: 32 #GB
+    # ------- for layer wise -------
+    # max_gpu_memory: 36 #GB 
+    # ------- one-shot taylor -------
+    use_ckpt_during_prune: true
+    max_gpu_memory: 32 #GB
+
+data:
+    # name: coco
+    # path: /public/scccse/dataset/COCO2014
+    name: imagenet1k
+    path: /public/scccse/dataset/ILSVRC2012
+
+    # batch_size: 64
+    # batch_size: 80
+    batch_size: 128
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 4
+
+resume:
+    use_resume: false
+    fname_score: /path/to/ckpt
+    fname_model: /path/to/ckpt
+
+prune:
+    # use_abs: false
+    use_abs: true
+
+    only_image: true
+    use_entropy: true
+
+    # temp_inv: 20
+    # loss_inc_thresh: 5e-4
+    # loss_inc_thresh: 3e-4
+
+    temp_inv: 15
+    # loss_inc_thresh: 5e-4
+    # loss_inc_thresh: 1e-3
+    # loss_inc_thresh: 2e-3
+    # loss_inc_thresh: 8e-3
+    # loss_inc_thresh: 1.2e-2
+    # loss_inc_thresh: 1.6e-2
+    loss_inc_thresh: 1e-2
+    # loss_inc_thresh: 2e-2
+    # loss_inc_thresh: 4e-2
+    # loss_inc_thresh: 5e-3
+    # loss_inc_thresh: 1e-4
+    # loss_inc_thresh: 1e-1
+
+    # temp_inv: 10
+    # loss_inc_thresh: 8e-2
+

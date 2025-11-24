@@ -1,0 +1,66 @@
+
+
+model:
+    name: EVA-CLIP-8B
+    path: /public/scccse/model_weight/EVA-CLIP/EVA_CLIP_8B_psz14_s9B.pth
+
+    use_ckpt: false
+
+    use_ckpt_during_prune: true
+    # max_gpu_memory: 40 #GB
+    # max_gpu_memory: 35 #GB # for layer-wise
+    # max_gpu_memory: 30 #GB
+    # max_gpu_memory: 25 #GB
+    # max_gpu_memory: 20 #GB
+    max_gpu_memory: 18 #GB
+    # max_gpu_memory: 15 #GB
+
+data:
+    # name: coco
+    # path: /public/scccse/dataset/COCO2014
+
+    name: imagenet1k
+    path: /public/scccse/dataset/ILSVRC2012
+
+    batch_size: 64
+    # batch_size: 128
+    # batch_size: 32
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 4
+
+resume:
+    use_resume: false
+    fname_score: !!null
+    fname_model: !!null
+
+    # use_resume: true
+    # fname_score: out/EVA-CLIP-8B-plus_prune/eva_clip_2025-03-11_21-27-45/ckpt/score_layer_wise_thresh_0.02_t20/scores_layer_10.pth
+    # fname_model: out/EVA-CLIP-8B-plus_prune/eva_clip_2025-03-11_21-27-45/ckpt/model_layer_wise_thresh_0.02_t20/model_layer_10.pth
+
+prune:
+    # use_abs: false
+    use_abs: true
+
+    only_image: true
+    use_entropy: true
+
+    # temp_inv: 20
+    # loss_inc_thresh: 5e-4
+    # loss_inc_thresh: 1e-3
+    # loss_inc_thresh: 2e-3
+    # loss_inc_thresh: 5e-3
+
+
+    # loss_inc_thresh: 1e-2
+    # loss_inc_thresh: 2e-2
+    # loss_inc_thresh: 4e-2
+    # loss_inc_thresh: 8e-2
+    # loss_inc_thresh: 1.6e-1
+
+    # temp_inv: 10
+    # loss_inc_thresh: 2e-1
+    # loss_inc_thresh: 1e-1
+
+    temp_inv: 15
+    loss_inc_thresh: 1e-1

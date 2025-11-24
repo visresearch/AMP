@@ -1,0 +1,72 @@
+model:
+    name: ViT-bigG-14
+    weight_t: /public/scccse/model_weight/CLIP-ViT-bigG-14-laion2B-39B-b160k/open_clip_pytorch_model.bin
+    # weight_s: out/open_clip_BigG_coco/model_layer_wise_thresh_0.02_train/model_layer_0.pth
+    # weight_s: out/open_clip_BigG_coco/model_layer_wise_thresh_0.01_val/model_layer_0.pth
+
+    # zsc acc: 0.65622
+    # weight_s: out/ViT-bigG-14_prune/open_clip_2025-02-21_00-44-06/ckpt/model_layer_wise_thresh_0.0005_t15/model_layer_0.pth 
+    weight_s: out/ViT-bigG-14_prune/open_clip_2025-04-07_14-06-42/ckpt/model_thresh_0.0005_t15/model_layer.pth 
+    # weight_s: out/ViT-bigG-14_prune/open_clip_2025-04-12_06-36-56/ckpt/model_thresh_0.0002_t15/model_layer.pth
+    
+    use_zero_module: false
+
+data:
+    # root: /public/scccse/dataset/COCO2014
+    root: /public/scccse/dataset/ILSVRC2012
+    input_size: 224
+    min_crop: 0.2
+    # batch_size_per_gpu: 48
+    # batch_size_per_gpu: 56 # loss thresh: 0.01
+    batch_size_per_gpu: 64 # loss thresh: 0.02
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 2
+
+    mixed_data: true
+
+optim:
+    use_meopt: true
+    loss: mse
+    pure_bf16: true
+
+    # loss: entropy
+    # temp_inv: 15
+
+    use_module_ckpt: true
+    # max_gpu_memory: 31 
+    max_gpu_memory: 32
+    
+    weight_decay: 0.04
+    weight_decay_end: 0.2
+
+    # base_lr: 1.5e-04 # loss not decrease
+    # base_lr: 1.0e-04 # not recover
+    # base_lr: 8.0e-05 # worse than 6.0e-05
+    # base_lr: 6.0e-05 
+    # base_lr: 4.0e-05
+    # base_lr: 3.0e-05
+    # base_lr: 2.0e-05 # 目前最好
+    # min_lr: 1.0e-06
+
+    # nepochs: 1
+    # warmup_epochs: 0.2
+
+    # nepochs: 5
+    # warmup_epochs: 1
+
+    # ------- score entropy -------
+    # base_lr: 5e-6 # 变差
+    # min_lr: 1e-7
+
+    # base_lr: 1e-5
+    # base_lr: 3e-5
+    base_lr: 2e-5
+    min_lr: 1e-6
+
+
+    # nepochs: 10
+    # warmup_epochs: 1
+
+    nepochs: 20
+    warmup_epochs: 1

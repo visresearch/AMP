@@ -1,0 +1,10 @@
+*__pycache__*
+*__pycache__/*
+backup/*
+out/*
+out
+.vscode/*
+*.out
+ckpt/*
+*.pyc
+core.*

@@ -1,0 +1,53 @@
+model:
+    name: EVA02-CLIP-bigE-14-plus
+    weight_t: /public/scccse/model_weight/EVA-CLIP/EVA02_CLIP_E_psz14_plus_s9B.pt
+    # weight_s: out/EVA02-CLIP-bigE-14-plus_prune/eva_clip_2025-02-20_14-33-13/ckpt/model_layer_wise_thresh_0.002_t20/model_layer_0.pth
+    weight_s: out/EVA02-CLIP-bigE-14-plus_prune/eva_clip_2025-04-05_23-16-16/ckpt/model_thresh_0.002_t20/model_layer.pth
+    use_zero_module: false
+
+    # weight_resume: out/distill/EVA02-CLIP-bigE-14-plus/eva_clip_2025-02-26_16-58-47/ckpt/student_EVA02-CLIP-bigE-14-plus_4.pth
+    # epoch_resume: 4
+
+data:
+    # root: /public/scccse/dataset/COCO2014
+    root: /public/scccse/dataset/ILSVRC2012
+    input_size: 224
+    min_crop: 0.2
+    # batch_size_per_gpu: 16
+    # batch_size_per_gpu: 32
+    # batch_size_per_gpu: 40
+    batch_size_per_gpu: 64
+    # batch_size_per_gpu: 48 # model_layer_wise_thresh_0.32_val
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 2
+
+    mixed_data: true
+
+optim:
+    distribute_strategy: fsdp
+    use_meopt: false
+    loss: mse
+    pure_bf16: true
+    
+    weight_decay: 0.04
+    weight_decay_end: 0.2
+
+    use_module_ckpt: true
+    # max_gpu_memory: 31 
+    max_gpu_memory: 36
+    # max_gpu_memory: 34
+
+    # base_lr: 8.0e-05
+    # base_lr: 4.0e-05
+    # base_lr: 6.0e-05 # 目前最好
+    # min_lr: 1.0e-06
+
+    # ----------- score entropy prune -----------
+    # base_lr: 6.0e-05
+    # base_lr: 2e-5 # 还是太大
+    base_lr: 1e-5
+    min_lr: 1e-6
+
+    nepochs: 10
+    warmup_epochs: 1

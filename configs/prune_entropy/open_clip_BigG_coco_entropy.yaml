@@ -1,0 +1,40 @@
+
+
+model:
+    name: ViT-bigG-14
+    path: /public/scccse/model_weight/CLIP-ViT-bigG-14-laion2B-39B-b160k/open_clip_pytorch_model.bin
+
+    use_ckpt: false
+
+    use_ckpt_during_prune: true
+    # max_gpu_memory: 38 #GB
+    max_gpu_memory: 15 #GB
+
+data:
+    # name: coco
+    # path: /public/scccse/dataset/COCO2014
+
+    name: imagenet1k
+    path: /public/scccse/dataset/ILSVRC2012
+
+    batch_size: 128
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 4
+
+resume:
+    use_resume: false
+    fname_score: /path/to/ckpt
+    fname_model: /path/to/ckpt
+
+prune:
+    # use_abs: false
+    use_abs: true
+
+    only_image: true
+    use_entropy: true
+
+    temp_inv: 15
+    # loss_inc_thresh: 1e-3
+    # loss_inc_thresh: 5e-4
+    loss_inc_thresh: 2e-4

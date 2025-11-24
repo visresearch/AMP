@@ -1,0 +1,47 @@
+model:
+    name: EVA-CLIP-8B
+    weight_t: /public/scccse/model_weight/EVA-CLIP/EVA_CLIP_8B_psz14_s9B.pth
+    # weight_s: out/EVA-CLIP-8B-plus_prune/eva_clip_2025-03-12_23-24-01/ckpt/model_layer_wise_thresh_0.02_t20/model_layer_0_fp16.pth
+    # weight_s: out/EVA-CLIP-8B_prune/eva_clip_2025-03-13_23-19-34/ckpt/model_layer_wise_thresh_0.02_t20/model_layer_0.pth
+    # weight_s: out/EVA-CLIP-8B_prune/eva_clip_2025-03-14_22-39-35/ckpt/model_layer_wise_thresh_0.08_t20/model_layer_0.pth
+    weight_s: out/EVA-CLIP-8B_prune/eva_clip_2025-04-08_11-14-20/ckpt/model_thresh_0.02_t20/model_layer.pth
+    use_zero_module: false
+
+    # weight_resume: xxx
+    # epoch_resume: 4
+
+data:
+    root: /public/scccse/dataset/ILSVRC2012
+    input_size: 224
+    min_crop: 0.2
+    # batch_size_per_gpu: 16
+    batch_size_per_gpu: 20
+    # batch_size_per_gpu: 32
+    # batch_size_per_gpu: 40
+    # batch_size_per_gpu: 48
+    # batch_size_per_gpu: 64
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 2
+
+    mixed_data: true
+
+optim:
+    distribute_strategy: fsdp
+    use_meopt: false
+    loss: mse
+    pure_bf16: true
+    
+    weight_decay: 0.04
+    weight_decay_end: 0.2
+
+    use_module_ckpt: true
+    max_gpu_memory: 30 
+    # max_gpu_memory: 36
+
+    # ----------- score entropy prune -----------
+    base_lr: 1e-5
+    min_lr: 1e-6
+
+    nepochs: 10
+    warmup_epochs: 1

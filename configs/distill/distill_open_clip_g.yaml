@@ -1,0 +1,57 @@
+model:
+    name: ViT-g-14
+    weight_t: /public/scccse/model_weight/CLIP-ViT-g-14-laion2B-s34B-b88K/open_clip_pytorch_model.bin
+    # weight_s: out/open_clip_g_coco/model_layer_wise_thresh_0.02_train/model_layer_0.pth
+    # weight_s: out/open_clip_g_coco/model_layer_wise_thresh_0.04_train/model_layer_0.pth
+    # weight_s: out/open_clip_g_coco/model_layer_wise_thresh_0.08_train/model_layer_0.pth
+    # weight_s: out/open_clip_g_coco/model_layer_wise_thresh_0.02_val_shuffle/model_layer_0.pth
+
+    # zsc acc: 0.70336
+    # weight_s: out/ViT-g-14_prune/open_clip_2025-02-21_20-55-39/ckpt/model_layer_wise_thresh_0.0005_t15/model_layer_0.pth
+    # weight_s: out/ViT-g-14_prune/open_clip_2025-04-03_23-22-51/ckpt/model_thresh_0.016_t15/model_layer.pth
+    # weight_s: out/ViT-g-14_prune/open_clip_2025-04-07_10-52-35/ckpt/model_thresh_0.04_t15/model_layer.pth
+    weight_s: out/ViT-g-14_prune/open_clip_2025-04-16_11-05-29/ckpt/model_thresh_0.01_t15/model_layer.pth
+    # weight_s: out/ViT-g-14_prune/open_clip_2025-04-15_19-36-02/ckpt/model_thresh_0.02_t15/model_layer.pth
+    use_zero_module: false
+
+data:
+    # root: /public/scccse/dataset/COCO2014
+    root: /public/scccse/dataset/ILSVRC2012
+    input_size: 224
+    min_crop: 0.2
+    batch_size_per_gpu: 64
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 2
+
+    mixed_data: true
+
+optim:
+    use_meopt: false
+    loss: mse
+    pure_bf16: true
+
+    # loss: entropy
+    # temp_inv: 15
+
+    use_module_ckpt: false
+    max_gpu_memory: 34
+    
+    weight_decay: 0.04
+    weight_decay_end: 0.2
+
+    # base_lr: 1.0e-04 # mse当前最佳
+    # # base_lr: 6.0e-05 # 不行
+    # min_lr: 1.0e-06
+
+    # ---- entropy ----
+    # base_lr: 2e-6 
+    # min_lr: 1e-7
+
+    # ------- score entropy -------
+    # base_lr: 5e-5
+    base_lr: 2e-5
+    min_lr: 1e-7
+
+    nepochs: 5
+    warmup_epochs: 1

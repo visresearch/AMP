@@ -1,0 +1,65 @@
+model:
+    arch: vit_giant2
+    patch_size: 14
+    layerscale: 1.0e-05
+    ffn_layer: swiglufused
+    block_chunks: 0
+    qkv_bias: true
+    proj_bias: true
+    ffn_bias: true
+    num_register_tokens: 0
+    interpolate_antialias: false
+    interpolate_offset: 0.1
+
+    input_size: 518
+
+    weight_t: /public/scccse/model_weight/dinov2/dinov2_vitg14_pretrain.pth
+    # weight_s: out/dinov2/model_layer_wise_thresh_0.02_shuffle/model_layer_0.pth
+    # weight_s: out/dinov2/model_layer_wise_thresh_0.02_shuffle/model_layer_0.pth
+    # weight_s: out/dinov2/model_layer_wise_thresh_0.01/model_layer_0.pth
+    weight_s: out/vit_giant2_prune/dinov2_2025-04-06_00-24-57/ckpt/model_thresh_0.01_t20/model_layer.pth
+    # weight_s: out/vit_giant2_prune/dinov2_2025-04-11_14-45-03/ckpt/model_thresh_0.005_t20/model_layer.pth
+    use_zero_module: false
+
+data:
+    # root: /public/scccse/dataset/COCO2014
+    root: /public/scccse/dataset/ILSVRC2012
+    batch_size_per_gpu: 64 # loss thresh: 0.02
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 2
+
+    input_size: 224
+    min_crop: 0.05
+
+optim:
+    use_meopt: true
+    loss: mse
+    # loss: entropy
+    # temp_inv: 5
+    pure_bf16: true
+
+    use_module_ckpt: false
+    max_gpu_memory: 34
+    
+    weight_decay: 0.04
+    weight_decay_end: 0.2
+
+    base_lr: 7.5e-6
+    min_lr: 1.0e-07
+
+    # base_lr: 1e-5
+    # min_lr: 1e-6
+
+    # base_lr: 2e-6 # 变差了
+    # min_lr: 1e-7
+
+    # nepochs: 10
+    # warmup_epochs: 1
+
+    # nepochs: 20
+    # warmup_epochs: 1
+
+    nepochs: 30
+    warmup_epochs: 1
+

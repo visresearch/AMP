@@ -1,0 +1,60 @@
+
+
+model:
+    name: EVA02-CLIP-bigE-14-plus
+    path: /public/scccse/model_weight/EVA-CLIP/EVA02_CLIP_E_psz14_plus_s9B.pt
+
+    use_ckpt: false
+    # nblock_interval: 2
+
+    use_ckpt_during_prune: true
+    # use_ckpt_during_prune: false
+    # use_ckpt_during_prune: false
+    # use_ckpt_layer_idx: 40
+    # max_gpu_memory: 42 #GB
+    # max_gpu_memory: 30 #GB
+    # max_gpu_memory: 30 #GB
+    # max_gpu_memory: 24 #GB
+    # max_gpu_memory: 20 #GB
+    # max_gpu_memory: 15
+    max_gpu_memory: 10 #GB compute scores for all blocks
+
+data:
+    # name: coco
+    # path: /public/scccse/dataset/COCO2014
+
+    name: imagenet1k
+    path: /public/scccse/dataset/ILSVRC2012
+
+    batch_size: 64 # compute scores for all blocks
+    # batch_size: 128
+    # batch_size: 32
+    # batch_size: 48
+    # batch_size: 16
+    num_workers: 4
+    pin_memory: true
+    prefetch_factor: 4
+
+resume:
+    use_resume: false
+    fname_score: /path/to/ckpt
+    fname_model: /path/to/ckpt
+
+prune:
+    # use_abs: false
+    use_abs: true
+
+    only_image: true
+    use_entropy: true
+
+    # num_selected_neurons: 1408
+
+    temp_inv: 20
+    # loss_inc_thresh: 5e-4
+    # loss_inc_thresh: 1e-3
+    loss_inc_thresh: 2e-3
+    # loss_inc_thresh: 5e-3
+    # loss_inc_thresh: 1e-2
+    # loss_inc_thresh: 5e-2
+    # loss_inc_thresh: 5e-2
+
