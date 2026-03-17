@@ -4,17 +4,13 @@ This repository is the official implementation of "Adaptive MLP Pruning for Larg
 
 [[Paper](https://arxiv.org/abs/2603.08100)]    [[BibTex](#Citation)]   [[HuggingFace](https://huggingface.co/visresearch/AMR/tree/main)]
 
-![criterion](docs/criterion.png)
-
-![binary_search](docs/binary_search.png)
-
-Large vision transformers present impressive scalability, as their performance can be well improved with increased model capacity. Nevertheless, their cumbersome parameters results in exorbitant computational and memory demands. By analyzing prevalent transformer structures, we find that multilayer perceptron (MLP) modules **constitute the largest share of the model's parameters**.
-
 In this paper, we propose an Adaptive MLP Pruning (AMP) method to substantially reduce the parameters of large vision transformers without obvious performance degradation. First, we adopt Taylor based method to evaluate neuron importance of MLP. However, the importance computation using **one-hot cross entropy loss ignores the potential predictions on other categories**, thus degrading the quality of the evaluated importance scores. To address this issue, we introduce label-free information entropy criterion to **fully model the predictions of the original model for more accurate importance evaluation**. Second, we rank the hidden neurons of MLP by the above importance scores and apply binary search algorithm to adaptively prune the ranked neurons according to the redundancy of different MLP modules, thereby avoiding the predefined compression ratio.
 
 Experimental results on several state-of-the-art large vision transformers, including CLIP and DINOv2, demonstrate that our method achieves **roughly 40% parameter and FLOPs reduction in a near lossless manner**. 
 
+![criterion](docs/criterion.png)
 
+![binary_search](docs/binary_search.png)
 
 ### 1. Installation
 
