@@ -1,5 +1,7 @@
 # Adaptive MLP Pruning for Large Vision Transformers
 
+![poster](docs/poster.png)
+
 This repository is the official implementation of "Adaptive MLP Pruning for Large Vision Transformers".
 
 [[Paper](https://arxiv.org/abs/2603.08100)]    [[BibTex](#Citation)]   [[HuggingFace](https://huggingface.co/visresearch/AMR/tree/main)]
